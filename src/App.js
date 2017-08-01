@@ -25,16 +25,16 @@ class App extends Component {
     let { screen }= this.state
     return (
       <div className='app'>
-      {screen === 'list' && (
-        <ListContacts
-          onContactDelete={this.removeContact}
-          contacts={this.state.contacts}
-          onContactCreate= {()=>this.setState({screen:'create'})}
-        />
-      )}
-      {screen === 'create' && (
-        <CreateContact />
-      )}
+        {screen === 'list' && (
+          <ListContacts
+            onContactDelete={this.removeContact}
+            contacts={this.state.contacts}
+            onContactCreate= {()=>this.setState({screen:'create'})}
+          />
+        )}
+        {screen === 'create' && (
+          <CreateContact />
+        )}
       </div>
     )
   }
