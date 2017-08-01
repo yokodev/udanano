@@ -21,8 +21,8 @@ class ListContacts extends Component {
 		const { contacts, onContactDelete } = this.props
 		const { query } = this.state
 		let showingContacts
-		if (this.state.query) {
-			const match = new RegExp(escapeRegExp(this.state.query),'i')
+		if (query) {
+			const match = new RegExp(escapeRegExp(query),'i')
 			showingContacts = contacts.filter(c=>match.test(c.name))
 		} else {
 			showingContacts = contacts
@@ -35,7 +35,7 @@ class ListContacts extends Component {
 						className='search-contacts'
 						type='text'
 						placeholder='Search contacts'
-						value={this.state.query}
+						value={query}
 						onChange={(event)=>this.updateQuery(event.target.value)}
 					/>
 				</div>
