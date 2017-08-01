@@ -7,7 +7,6 @@ import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   state={
-    screen: 'list',
     contacts : []
   }
 
@@ -22,6 +21,14 @@ class App extends Component {
     ContactsAPI.remove(contactToRemove)
     .then((response)=>console.log('Response after delete: ', response))
   }
+  createContact = (contact)=>{
+    ContactsAPI.create(contact)
+    .then((contact)=>{
+      this.setState((state)=>({
+        contacts:state.contacts.concat([contact])
+      }))
+    })
+  }
   render() {
     return (
       <div className='app'>
@@ -32,7 +39,14 @@ class App extends Component {
             onContactCreate= {()=>this.setState({screen:'create'})}
           />
         )}/>
-        <Route path='/create' component={CreateContact}/>
+        <Route path='/create' render={({history})=>(
+          <CreateContact
+            onCreateContact={(contact)=>{
+              this.createContact(contact)
+              history.push("/")
+            }}
+          />)
+        }/>
       </div>
     )
   }
