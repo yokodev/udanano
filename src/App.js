@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
+import CreateContact from './CreateContact'
 import * as ContactsAPI from './utils/ContactsAPI';
+
 
 class App extends Component {
   state={
+    screen: 'list',
     contacts : []
   }
-  
+
   componentDidMount(){
     ContactsAPI.getAll()
     .then((contacts)=> this.setState({contacts}))
@@ -19,12 +22,19 @@ class App extends Component {
     .then((response)=>console.log('Response after delete: ', response))
   }
   render() {
+    let { screen }= this.state
     return (
-      <div>
-      <ListContacts
-        onContactDelete={this.removeContact}
-        contacts={this.state.contacts}
-      />
+      <div className='app'>
+      {screen === 'list' && (
+        <ListContacts
+          onContactDelete={this.removeContact}
+          contacts={this.state.contacts}
+          onContactCreate= {()=>this.setState({screen:'create'})}
+        />
+      )}
+      {screen === 'create' && (
+        <CreateContact />
+      )}
       </div>
     )
   }
